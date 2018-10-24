@@ -9,6 +9,7 @@
     "bodies": {
         "Earth": {
             "useDefaultSettings": true
+	    XXXX
         },
 	XXXX
         "asterix": {
@@ -35,8 +36,7 @@
                     ],
                     XXXX
                 }
-            },
-            XXXX
+            },            
             "bodiesToPropagate": [
                 "asterix"
             ]
