@@ -8,22 +8,37 @@
     },
     "bodies": {
         "Earth": {
-            "useDefaultSettings": true
-	    XXXX
+            "useDefaultSettings": true,
+	    "gravityField": {
+  	        "model": "ggm02c",
+                "type": "sphericalHarmonic"
+            }
         },
-	XXXX
         "asterix": {
             "initialState": {
                 "semiMajorAxis": 7000000.0,
                 "eccentricity": 0.05,
                 "inclination": 89.3,
                 XXXX
-                "type": "keplerian"
-            }
+                "type": "keplerian",
+                "initialStateOrigin": "Earth"
+            },
+            XXXX
+            "referenceArea": 0.02,
+            "aerodynamics": {
+                "forceCoefficients": [
+                    1.5,
+                    0,
+                    0
+                ]
+            },
         }
     },
     "propagators": [
         {
+            "bodiesToPropagate": [
+                "asterix"
+            ],
             "centralBodies": [
                 "Earth"
             ],
@@ -31,15 +46,13 @@
                 "asterix": {
                     "Earth": [
                         {
-                            "type": "pointMassGravity"
-                        }
-                    ],
-                    XXXX
+                            XXXX
+                            "type": "sphericalHarmonicGravity"
+                        },
+                        XXXX
+                    ]
                 }
-            },            
-            "bodiesToPropagate": [
-                "asterix"
-            ]
+            }            
         }
     ],
     "integrator": {
