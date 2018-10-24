@@ -18,7 +18,7 @@
             "initialState": {
                 "semiMajorAxis": 7000000.0,
                 "eccentricity": 0.05,
-                "inclination": 89.3,
+                "inclination": 1.558579,
                 XXXX
                 "type": "keplerian",
                 "initialStateOrigin": "Earth"
