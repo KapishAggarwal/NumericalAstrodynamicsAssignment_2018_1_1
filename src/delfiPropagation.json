@@ -46,10 +46,11 @@
                 "asterix": {
                     "Earth": [
                         {
-                            XXXX
-                            "type": "sphericalHarmonicGravity"
+                           XXXX    
                         },
-                        XXXX
+                        {
+			   XXXX
+			}
                     ]
                 }
             }            
