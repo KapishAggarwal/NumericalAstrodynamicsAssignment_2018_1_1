@@ -14,7 +14,7 @@
                 "type": "sphericalHarmonic"
             }
         },
-        "asterix": {
+        "Delfi": {
             "initialState": {
                 "semiMajorAxis": 7000000.0,
                 "eccentricity": 0.05,
@@ -37,13 +37,13 @@
     "propagators": [
         {
             "bodiesToPropagate": [
-                "asterix"
+                "Delfi"
             ],
             "centralBodies": [
                 "Earth"
             ],
             "accelerations": {
-                "asterix": {
+                "Delfi": {
                     "Earth": [
                         {
                            XXXX    
