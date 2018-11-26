@@ -30,7 +30,7 @@ static inline std::string getOutputPath(
 
     // Strip filename from temporary string and return root-path string.
     std::string reducedPath = filePath_.substr( 0, filePath_.length( ) -
-                                                std::string( "delfiPropagationJson.cpp" ).length( ) );
+                                                std::string( "numericalAstrodynamicsThrustAnalysis.cpp" ).length( ) );
     std::string outputPath = reducedPath + "SimulationOutput/";
     if( extraDirectory != "" )
     {
@@ -171,7 +171,7 @@ std::shared_ptr< ThrustAccelerationSettings > getQuestion3ThrustSettings(
                 thrustMagnitudeFunction, specificImpulseFunction );
 
     /****** Modify for AE4868: define thrust direction (set thrust direction along velocity vector; question 3)******************/
-    thrustDirectionGuidanceSettings; = //
+    thrustDirectionGuidanceSettings; // =
 
     // Create and return thrust settings
     return std::make_shared< ThrustAccelerationSettings >(
