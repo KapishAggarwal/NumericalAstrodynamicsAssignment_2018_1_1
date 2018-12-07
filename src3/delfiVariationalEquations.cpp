@@ -76,6 +76,11 @@ int main()
             getDefaultBodySettings( bodiesToCreate, simulationStartEpoch - 300.0, simulationEndEpoch + 300.0 );
     bodySettings[ "Earth" ]->gravityFieldSettings =
             std::make_shared< FromFileSphericalHarmonicsGravityFieldSettings >( ggm02c );
+    for( unsigned int i = 0; i < bodiesToCreate.size( ); i++ )
+    {
+        bodySettings[ bodiesToCreate.at( i ) ]->ephemerisSettings->resetFrameOrientation( "J2000" );
+        bodySettings[ bodiesToCreate.at( i ) ]->rotationModelSettings->resetOriginalFrame( "J2000" );
+    }
 
     // Create body objects.
     NamedBodyMap bodyMap = createBodies( bodySettings );
