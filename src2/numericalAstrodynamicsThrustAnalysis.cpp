@@ -61,13 +61,13 @@ void setOutputFiles(
 void setFlightConditions(
         JsonSimulationManager< >& jsonSimulationManager )
 {
-    if( jsonSimulationManager.getBodyMap( ).at( "delfi" )->getFlightConditions( ) == nullptr )
+    if( jsonSimulationManager.getBodyMap( ).at( "Delfi" )->getFlightConditions( ) == nullptr )
     {
-        jsonSimulationManager.getBodyMap( ).at( "delfi" )->setFlightConditions(
+        jsonSimulationManager.getBodyMap( ).at( "Delfi" )->setFlightConditions(
                     createFlightConditions(
-                        jsonSimulationManager.getBodyMap( ).at( "delfi" ),
+                        jsonSimulationManager.getBodyMap( ).at( "Delfi" ),
                         jsonSimulationManager.getBodyMap( ).at( "Earth" ),
-                        "delfi", "Earth" ) );
+                        "Delfi", "Earth" ) );
     }
 }
 
@@ -88,7 +88,7 @@ void setThrustAccelerationSettings(
     SelectedAccelerationMap accelerationSettingsMap = translationalStateSettings-> getAccelerationSettingsMap( );
 
     // Add Thrust to acceleration settings
-    accelerationSettingsMap[ "delfi" ][ "delfi" ].push_back( thrustSettings );
+    accelerationSettingsMap[ "Delfi" ][ "Delfi" ].push_back( thrustSettings );
 
     // Reset acceleration model settings, and re-process settings
     translationalStateSettings->resetAccelerationModelsMap(
@@ -135,8 +135,8 @@ double getThrustMagnitudeQuestion3(
         const double time,
         const NamedBodyMap& bodyMap )
 {
-    bodyMap.at( "delfi" )->getFlightConditions( )->resetCurrentTime( TUDAT_NAN );
-    bodyMap.at( "delfi" )->getFlightConditions( )->updateConditions( time );
+    bodyMap.at( "Delfi" )->getFlightConditions( )->resetCurrentTime( TUDAT_NAN );
+    bodyMap.at( "Delfi" )->getFlightConditions( )->updateConditions( time );
 
     /****** Modify for AE4868: define thrust magnitude as a function of altitude (question 3)************************************/
     double thrustMagnitude = 0.0;
@@ -209,7 +209,7 @@ Eigen::Vector3d getNormalThrustDirection(
         const NamedBodyMap& bodyMap  )
 {
     // Compute state of Delfi w.r.t. Earth (position and velocity)
-    Eigen::Vector6d vehicleRelativeState = bodyMap.at( "delfi" )->getState( ) -
+    Eigen::Vector6d vehicleRelativeState = bodyMap.at( "Delfi" )->getState( ) -
             bodyMap.at( "Earth" )->getState( );
 
     /****** Modify for AE4868: define thrust direction (question 5)**************************************************************/
@@ -228,7 +228,7 @@ Eigen::Vector3d getCrossTrackThrustDirection(
         const NamedBodyMap& bodyMap  )
 {
     // Compute state of Delfi w.r.t. Earth (position and velocity)
-    Eigen::Vector6d vehicleRelativeState = bodyMap.at( "delfi" )->getState( ) -
+    Eigen::Vector6d vehicleRelativeState = bodyMap.at( "Delfi" )->getState( ) -
             bodyMap.at( "Earth" )->getState( );
 
     /****** Modify for AE4868: define thrust direction (question 5)**************************************************************/
