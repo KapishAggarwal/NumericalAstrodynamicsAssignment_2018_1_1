@@ -98,34 +98,34 @@ int main()
     // **** MODIFY FOR AE4868: all required properties of body Delfi
     bodyMap[ "Delfi" ]->setConstantBodyMass( 3.5 );
 
-       bodyMap[ "Delfi" ]->setEphemeris( boost::make_shared< TabulatedCartesianEphemeris< > >(
-                                             boost::shared_ptr< interpolators::OneDimensionalInterpolator
-                                             < double, Eigen::Vector6d > >( ), "Earth", "J2000" ) );
+    bodyMap[ "Delfi" ]->setEphemeris( std::make_shared< TabulatedCartesianEphemeris< > >(
+                                          std::shared_ptr< interpolators::OneDimensionalInterpolator
+                                          < double, Eigen::Vector6d > >( ), "Earth", "J2000" ) );
 
-       // Create aerodynamic coefficient interface settings.
-       double referenceArea = 0.02;
-       double aerodynamicCoefficient = 1.5;
-       boost::shared_ptr< AerodynamicCoefficientSettings > aerodynamicCoefficientSettings =
-               boost::make_shared< ConstantAerodynamicCoefficientSettings >(
-                   referenceArea, aerodynamicCoefficient * Eigen::Vector3d::UnitX( ), 1, 1 );
+    // Create aerodynamic coefficient interface settings.
+    double referenceArea = 0.02;
+    double aerodynamicCoefficient = 1.5;
+    std::shared_ptr< AerodynamicCoefficientSettings > aerodynamicCoefficientSettings =
+            std::make_shared< ConstantAerodynamicCoefficientSettings >(
+                referenceArea, aerodynamicCoefficient * Eigen::Vector3d::UnitX( ), 1, 1 );
 
-       // Create and set aerodynamic coefficients object
-       bodyMap[ "Delfi" ]->setAerodynamicCoefficientInterface(
-                   createAerodynamicCoefficientInterface( aerodynamicCoefficientSettings, "Delfi" ) );
+    // Create and set aerodynamic coefficients object
+    bodyMap[ "Delfi" ]->setAerodynamicCoefficientInterface(
+                createAerodynamicCoefficientInterface( aerodynamicCoefficientSettings, "Delfi" ) );
 
-       // Create radiation pressure settings
-       double referenceAreaRadiation = 0.02;
-       double radiationPressureCoefficient = 1.2;
-       std::vector< std::string > occultingBodies;
-       occultingBodies.push_back( "Earth" );
-       boost::shared_ptr< RadiationPressureInterfaceSettings > delfiRadiationPressureSettings =
-               boost::make_shared< CannonBallRadiationPressureInterfaceSettings >(
-                   "Sun", referenceAreaRadiation, radiationPressureCoefficient, occultingBodies );
+    // Create radiation pressure settings
+    double referenceAreaRadiation = 0.02;
+    double radiationPressureCoefficient = 1.2;
+    std::vector< std::string > occultingBodies;
+    occultingBodies.push_back( "Earth" );
+    std::shared_ptr< RadiationPressureInterfaceSettings > delfiRadiationPressureSettings =
+            std::make_shared< CannonBallRadiationPressureInterfaceSettings >(
+                "Sun", referenceAreaRadiation, radiationPressureCoefficient, occultingBodies );
 
-       // Create and set radiation pressure settings
-       bodyMap[ "Delfi" ]->setRadiationPressureInterface(
-                   "Sun", createRadiationPressureInterface(
-                       delfiRadiationPressureSettings, "Delfi", bodyMap ) );
+    // Create and set radiation pressure settings
+    bodyMap[ "Delfi" ]->setRadiationPressureInterface(
+                "Sun", createRadiationPressureInterface(
+                    delfiRadiationPressureSettings, "Delfi", bodyMap ) );
 
     // Finalize body creation.
     setGlobalFrameBodyEphemerides( bodyMap, "SSB", "J2000" );
@@ -193,56 +193,56 @@ int main()
     // Print identifiers and indices of parameters to terminal.
     printEstimatableParameterEntries( parametersToEstimate );
 
+    std::string outputSubFolder = "DelfiVariationalEquations/";
+
     for( unsigned int question = 1; question <= 3; question++ )
     {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////             PROPAGATE ORBIT AND VARIATIONAL EQUATIONS         /////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // **** MODIFY FOR AE4868, question 1: propagate equations of motion
-        // **** MODIFY FOR AE4868, question 2: propagate equations of motion and variational equations
-
-
-        std::map< double, Eigen::MatrixXd > stateTransitionResult;
-        std::map< double, Eigen::MatrixXd > sensitivityResult;
-        std::map< double, Eigen::VectorXd > nominalIntegrationResult;
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////        PROVIDE OUTPUT TO CONSOLE AND FILES           //////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        std::string outputSubFolder = "DelfiVariationalEquations/";
-
-        // Write perturbed satellite propagation history to file.
-        input_output::writeDataMapToTextFile( nominalIntegrationResult,
-                                              "singlePerturbedSatellitePropagationHistory.dat",
-                                              getOutputPath( ) + outputSubFolder,
-                                              "",
-                                              std::numeric_limits< double >::digits10,
-                                              std::numeric_limits< double >::digits10,
-                                              "," );
-
-        input_output::writeDataMapToTextFile( stateTransitionResult,
-                                              "singlePerturbedSatelliteStateTransitionHistory.dat",
-                                              getOutputPath( ) + outputSubFolder,
-                                              "",
-                                              std::numeric_limits< double >::digits10,
-                                              std::numeric_limits< double >::digits10,
-                                              "," );
-
-        input_output::writeDataMapToTextFile( sensitivityResult,
-                                              "singlePerturbedSatelliteSensitivityHistory.dat",
-                                              getOutputPath( ) + outputSubFolder,
-                                              "",
-                                              std::numeric_limits< double >::digits10,
-                                              std::numeric_limits< double >::digits10,
-                                              "," );
-
-        Eigen::Vector6d originalInitialState = delfiInitialState;
-
-        // Iterate over all entries of initial state
-        for( unsigned int entry = 0; entry < 6; entry++ )
+        if( question == 1 )
         {
+            // **** MODIFY FOR AE4868, question 1: propagate equations of motion
+            std::map< double, Eigen::VectorXd > nominalIntegrationResult; // = ...
+
+            // Write perturbed satellite propagation history to file.
+            input_output::writeDataMapToTextFile( nominalIntegrationResult,
+                                                  "singlePerturbedSatellitePropagationHistory.dat",
+                                                  getOutputPath( ) + outputSubFolder,
+                                                  "",
+                                                  std::numeric_limits< double >::digits10,
+                                                  std::numeric_limits< double >::digits10,
+                                                  "," );
+
+        }
+        else if( question == 2 )
+        {
+            // **** MODIFY FOR AE4868, question 2: propagate equations of motion and variational equations
+            std::map< double, Eigen::MatrixXd > stateTransitionResult; // = ...
+            std::map< double, Eigen::MatrixXd > sensitivityResult; // = ...
+
+            // Write variational equation history to file.
+            input_output::writeDataMapToTextFile( stateTransitionResult,
+                                                  "singlePerturbedSatelliteStateTransitionHistory.dat",
+                                                  getOutputPath( ) + outputSubFolder,
+                                                  "",
+                                                  std::numeric_limits< double >::digits10,
+                                                  std::numeric_limits< double >::digits10,
+                                                  "," );
+
+            input_output::writeDataMapToTextFile( sensitivityResult,
+                                                  "singlePerturbedSatelliteSensitivityHistory.dat",
+                                                  getOutputPath( ) + outputSubFolder,
+                                                  "",
+                                                  std::numeric_limits< double >::digits10,
+                                                  std::numeric_limits< double >::digits10,
+                                                  "," );
+        }
+        else if( question == 3 )
+        {
+            Eigen::Vector6d originalInitialState = delfiInitialState;
+
             // **** MODIFY FOR AE4868, question 3: propagate orbits needed to find limits of validity of linearization.
         }
 
