@@ -94,13 +94,9 @@ int main()
     bodyMap[ "Delfi" ]->setEphemeris( std::make_shared< TabulatedCartesianEphemeris< > >(
                                           std::shared_ptr< interpolators::OneDimensionalInterpolator
                                           < double, Eigen::Vector6d > >( ), "Earth", "J2000" ) );
-
-    // **** MODIFY FOR AE4868: all required properties of body Delfi
     bodyMap[ "Delfi" ]->setConstantBodyMass( 3.5 );
 
-    bodyMap[ "Delfi" ]->setEphemeris( std::make_shared< TabulatedCartesianEphemeris< > >(
-                                          std::shared_ptr< interpolators::OneDimensionalInterpolator
-                                          < double, Eigen::Vector6d > >( ), "Earth", "J2000" ) );
+    // **** MODIFY FOR AE4868: add all required properties of body Delfi
 
     // Create aerodynamic coefficient interface settings.
     double referenceArea = 0.02;
@@ -160,6 +156,7 @@ int main()
     delfiInitialStateInKeplerianElements( inclinationIndex ) = unit_conversions::convertDegreesToRadians( 85.3 );
 
     // **** MODIFY FOR AE4868: set initial state according to your student number
+
     //    delfiInitialStateInKeplerianElements( argumentOfPeriapsisIndex ) = 0.0;
     //    delfiInitialStateInKeplerianElements( longitudeOfAscendingNodeIndex ) = 0.0;
     //    delfiInitialStateInKeplerianElements( trueAnomalyIndex ) = 0.0;
